@@ -37,11 +37,10 @@ export function EditorTableOfContents({ editor }: { editor: Editor }) {
   if (items.length === 0) return null;
 
   const handleItemClick = (id: string) => {
-    const document = editor.view.dom.ownerDocument;
-    const element = document.getElementById(id);
+    const element = editor.view.dom.querySelector(`[id="${id}"]`);
 
-    if (element && editor.view.dom.contains(element)) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 

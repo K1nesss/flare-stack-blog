@@ -12,16 +12,11 @@ export function getContext() {
       onError: handleServerError,
     }),
     mutationCache: new MutationCache({
-      onError: (error, _variables, _context, mutation) => {
-        if (mutation.options.onError) {
-          return;
-        }
-
-        handleServerError(error);
-      },
+      onError: handleServerError,
     }),
     defaultOptions: {
       queries: {
+        refetchOnWindowFocus: false,
         staleTime: 60 * 1000,
       },
     },

@@ -7,7 +7,6 @@ import { z } from "zod";
 import { TagSelectSchema } from "@/features/tags/tags.schema";
 import type { Post, PostStatus, Tag } from "@/lib/db/schema";
 import { POST_STATUSES, PostsTable } from "@/lib/db/schema";
-import { NullableJsonContentSchema } from "./json-content.schema";
 
 // Date fields need to accept both Date objects and ISO strings (for JSON serialization)
 const coercedDate = z.union([z.date(), z.string().pipe(z.coerce.date())]);
@@ -21,10 +20,7 @@ export const PostSelectSchema = createSelectSchema(PostsTable, {
   publicContentJson: true,
 });
 export const PostInsertSchema = createInsertSchema(PostsTable);
-export const PostUpdateSchema = createUpdateSchema(PostsTable, {
-  contentJson: NullableJsonContentSchema.optional(),
-  publicContentJson: NullableJsonContentSchema.optional(),
-}).omit({
+export const PostUpdateSchema = createUpdateSchema(PostsTable).omit({
   publicContentJson: true,
 });
 
